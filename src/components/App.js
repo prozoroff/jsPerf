@@ -3,7 +3,11 @@ import TaskList from './TaskList';
 import Code from './Code';
 import logo from './logo.svg';
 import './App.css';
+
+import measure_script from "../workers/measure.js";
+
 var nanoid = require('nanoid')
+
 
 class App extends Component {
 
@@ -15,6 +19,7 @@ class App extends Component {
             iterations: 1000,
             generalCode: ''
         }
+
         this.removeTask = this.removeTask.bind(this);
         this.addTask = this.addTask.bind(this);
         this.changeTask = this.changeTask.bind(this);
@@ -24,6 +29,10 @@ class App extends Component {
         this.iterationsChange = this.iterationsChange.bind(this);
         this.runTasks = this.runTasks.bind(this);
     }
+
+  componentDidMount(){
+    this.worker = new Worker(measure_script);
+  };
 
   removeTask(id) {
       this.setState(prevState => ({
@@ -68,7 +77,21 @@ class App extends Component {
 
   runTasks() {
     const { tasks, generalCode, iterations } = this.state;
-    //TODO Measure tasks
+
+    this.worker.onmessage = function(e) {
+        const data = e.data;
+        if(data.status === 'ok'){
+          console.log(data.result);
+        } else if(data.status === 'error'){
+          console.error(data.result);
+        }     
+      }
+    
+    this.worker.postMessage({
+      task: tasks[0],
+      iterations
+    });
+
   }
 
   render() {
