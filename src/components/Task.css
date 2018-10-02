@@ -3,6 +3,11 @@
 	font-size: 20px;
 }
 
+.task h2 {
+    display: inline-block;
+    font-size: 16px;
+}
+
 .task button {
 	background:none;
     border:none;

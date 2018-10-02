@@ -6,12 +6,12 @@ import './Task.css';
 class Task extends Component {
 
     render() {
-        const { onRemove, onChange, name, code } = this.props;
+        const { onRemove, onChange, name, code, result, colorStyle } = this.props;
         return (
             <div className="task" style={this.style}>
-                <h1 ref="title">{name}</h1>
+                <h1 ref="title">{name}</h1> <h2 style={colorStyle}>{result}</h2>
                 <button onClick={onRemove}>✕</button>
-                <Code value={code} onChange={onChange}/>
+                <Code value={code} onChange={onChange} />
             </div>
         )
     }
