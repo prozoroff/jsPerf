@@ -2,6 +2,7 @@
   "name": "jsperf",
   "version": "0.1.0",
   "private": true,
+  "homepage" : "http://prozoroff.github.io/jsperf",
   "dependencies": {
     "nanoid": "^1.2.5",
     "react": "^16.5.2",
