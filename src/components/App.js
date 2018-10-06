@@ -6,18 +6,21 @@ import './App.css';
 
 import measure_script from "../workers/measure.js";
 
-var nanoid = require('nanoid')
-
+const nanoid = require('nanoid');
+const replaceSeq = '<$>!';
 
 class App extends Component {
 
   constructor(props) {
     super(props)
+
+    var data = this.getUriData();
+
     this.state = {
-      tasks: [],
+      tasks: data && data.tasks || [],
       newName: '',
-      iterations: 1000,
-      generalCode: ''
+      iterations: data && data.iterations || 1000,
+      generalCode: data && data.generalCode || ''
     }
 
     this.removeTask = this.removeTask.bind(this);
@@ -27,11 +30,25 @@ class App extends Component {
     this.changeName = this.changeName.bind(this);
     this.changeGeneralCode = this.changeGeneralCode.bind(this);
     this.iterationsChange = this.iterationsChange.bind(this);
-    this.runTasks = this.runTasks.bind(this);
+    this.setUriData = this.setUriData.bind(this);
+  }
+
+  getUriData(){
+    const uriDataString = decodeURIComponent(window.location.href).split("?").slice(1).join('?');
+    return uriDataString && uriDataString.length ? JSON.parse(uriDataString.replace(replaceSeq,'?')) : null;
+  }
+
+  setUriData(){
+    const { tasks, generalCode, iterations } = this.state,
+      strData = JSON.stringify({generalCode, iterations, tasks}),
+      data = encodeURIComponent(strData);
+
+    window.location.href = window.location.href.split("?")[0] + "?" + data.replace('?', replaceSeq);
   }
 
   componentDidMount() {
     this.worker = new Worker(measure_script);
+    this.state.tasks.length && this.runTasks();
   };
 
   removeTask(id) {
@@ -77,8 +94,8 @@ class App extends Component {
 
   resultStyle(max, min, value) {
     const weight = max === min ? 0 : (value - min) / (max - min),
-      red = Math.round(255 * weight),
-      green = Math.round(255 * (1 - weight))
+      red = Math.round(220 * (weight < .5 ? 0 : weight)),
+      green = Math.round(220 * (weight < .5 ? 1 : (1 - weight)))
     return { color: `rgb(${red},${green},0)` };
   }
 
@@ -113,7 +130,7 @@ class App extends Component {
 
   render() {
     const { tasks, generalCode } = this.state;
-    const { removeTask, addTask, changeTask, changeName, changeGeneralCode, iterationsChange, runTasks } = this;
+    const { removeTask, addTask, changeTask, changeName, changeGeneralCode, iterationsChange, setUriData } = this;
     return (
       <div className="App">
         <header className="App-header">
@@ -138,7 +155,7 @@ class App extends Component {
             <div className="run-tasks">
               <span>Iterations </span>
               <input value={this.state.iterations} onChange={iterationsChange} type="number" />
-              <button onClick={runTasks}>Evaluate</button>
+              <button onClick={setUriData}>Evaluate</button>
             </div> :
             <div></div>
           }
