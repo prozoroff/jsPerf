@@ -1,6 +1,4 @@
-const workercode = () => {
-
-    let onmessage = function (e) {
+onmessage = function (e) {
         let start, end;
         const tasks = e.data.tasks,
             generalFunc = new Function(e.data.generalCode),
@@ -26,12 +24,3 @@ const workercode = () => {
         }
         postMessage(result);
     }
-};
-
-let code = workercode.toString();
-code = code.substring(code.indexOf("{") + 1, code.lastIndexOf("}"));
-
-const blob = new Blob([code], { type: "application/javascript" });
-const measure_script = URL.createObjectURL(blob);
-
-module.exports = measure_script;

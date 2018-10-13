@@ -4,8 +4,6 @@ import Code from './Code';
 import logo from './logo.svg';
 import './App.css';
 
-import measure_script from "../workers/measure.js";
-
 const nanoid = require('nanoid');
 const replaceSeq = '<$>!';
 
@@ -47,7 +45,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.worker = new Worker(measure_script);
+    this.worker = new Worker('measure.js');
     this.state.tasks.length && this.runTasks();
   };
 
