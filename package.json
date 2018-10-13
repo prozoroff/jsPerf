@@ -1,9 +1,10 @@
 {
   "name": "jsperf",
   "version": "0.1.0",
-  "private": true,
-  "homepage" : "http://prozoroff.github.io/jsperf",
+  "private": false,
+  "homepage": "https://prozoroff.github.io/jsPerf",
   "dependencies": {
+    "gh-pages": "^2.0.1",
     "nanoid": "^1.2.5",
     "react": "^16.5.2",
     "react-ace": "^6.2.0",
@@ -14,6 +15,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   }
 }

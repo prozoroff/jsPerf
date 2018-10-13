@@ -159,6 +159,10 @@ class App extends Component {
             </div> :
             <div></div>
           }
+          <div className="samples">
+           <h2>Samples</h2>
+          <a href="https://prozoroff.github.io/jsPerf/?%7B%22generalCode%22%3A%22arr%20%3D%20%5B%5D%3B%5Cnvar%20str%20%3D%20%27%27%3B%5Cnfor(var%20i%20%3D%200%3B%20i%20%3C%2010%3B%20i%2B%2B)%7B%5Cn%20%20%20%20str%20%2B%3D%20i%3B%5Cn%20%20%20%20arr.push(str)%5Cn%7D%22%2C%22iterations%22%3A1000%2C%22tasks%22%3A%5B%7B%22name%22%3A%22array%20join%22%2C%22id%22%3A%22JvguKtR5CW8rOw2fHPCyK%22%2C%22code%22%3A%22var%20result%20%3D%20%27%27%3B%5Cr%5Cnresult%20%2B%3D%20arr.join(%27%27)%3B%22%2C%22result%22%3A%225.60%20ms%22%2C%22colorStyle%22%3A%7B%22color%22%3A%22rgb(220%2C0%2C0)%22%7D%7D%2C%7B%22name%22%3A%22manual%20concatenation%22%2C%22id%22%3A%22L_9xPhrs5Te9LqAopWnb8%22%2C%22code%22%3A%22var%20result%20%3D%20%27%27%3B%5Cr%5Cnfor%20(var%20i%20%3D%200%2C%20l%20%3D%20arr.length%3B%20i%20%3C%20l%3B%20i%2B%2B)%20%7B%5Cr%5Cn%20%20%20%20result%20%2B%3D%20arr%5Bi%5D%3B%5Cr%5Cn%7D%22%2C%22result%22%3A%221.60%20ms%22%2C%22colorStyle%22%3A%7B%22color%22%3A%22rgb(0%2C220%2C0)%22%7D%7D%2C%7B%22name%22%3A%22String.ptototype.concat%22%2C%22id%22%3A%22epBuR5L6iFlBE3ugHtUZF%22%2C%22code%22%3A%22var%20result%20%3D%20%27%27%3B%5Cr%5Cnfor%20(var%20i%20%3D%200%2C%20l%20%3D%20arr.length%3B%20i%20%3C%20l%3B%20i%2B%2B)%20%7B%5Cr%5Cn%20%20%20%20result%20%3D%20result.concat(arr%5Bi%5D)%3B%5Cr%5Cn%7D%22%2C%22result%22%3A%221.50%20ms%22%2C%22colorStyle%22%3A%7B%22color%22%3A%22rgb(0%2C220%2C0)%22%7D%7D%5D%7D">String Concatenation</a>
+          </div>
         </div>
       </div>
     );
