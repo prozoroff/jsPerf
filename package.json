@@ -5,10 +5,10 @@
   "homepage": "https://prozoroff.github.io/jsPerf",
   "dependencies": {
     "gh-pages": "^2.0.1",
-    "nanoid": "^1.2.5",
-    "react": "^16.5.2",
-    "react-ace": "^6.2.0",
-    "react-dom": "^16.5.2",
+    "nanoid": "^1.3.4",
+    "react": "^16.8.6",
+    "react-ace": "^6.4.0",
+    "react-dom": "^16.8.6",
     "react-scripts": "1.1.5"
   },
   "scripts": {

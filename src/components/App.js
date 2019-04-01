@@ -39,14 +39,15 @@ class App extends Component {
   setUriData(){
     const { tasks, generalCode, iterations } = this.state,
       strData = JSON.stringify({generalCode, iterations, tasks}),
-      data = encodeURIComponent(strData);
+      data = encodeURIComponent(strData),
+      newLocation = window.location.href.split("?")[0] + "?" + data.replace('?', replaceSeq);
 
-    window.location.href = window.location.href.split("?")[0] + "?" + data.replace('?', replaceSeq);
+    window.location.href = newLocation;
   }
 
   componentDidMount() {
-    this.worker = new Worker('measure.js');
-    this.state.tasks.length && this.runTasks();
+    this.worker = this.worker || new Worker('measure.js');
+    this.runTasks();
   };
 
   removeTask(id) {
@@ -116,8 +117,13 @@ class App extends Component {
   }
 
   runTasks() {
-    const { tasks, generalCode, iterations } = this.state,
-      updateTasksResults = this.updateTasksResults.bind(this);
+    const { tasks, generalCode, iterations } = this.state;
+
+    if (!tasks.length) {
+      return;
+    }
+
+    const updateTasksResults = this.updateTasksResults.bind(this);
 
     this.worker.onmessage = function (e) {
       updateTasksResults(e.data);
